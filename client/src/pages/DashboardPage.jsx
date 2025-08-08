@@ -12,7 +12,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/api/bills/dashboard');
+        const response = await axios.get('https://voiceyourbill-server.onrender.com/api/bills/dashboard');
         setBills(response.data);
       } catch (err) {
         setError('Failed to load dashboard data. Please try again later.');
