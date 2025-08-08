@@ -35,7 +35,7 @@ const UploadForm = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5001/api/bills/upload',
+        'https://voiceyourbill-server.onrender.com/api/bills/upload',
         formData
       );
       const { billId } = response.data;
