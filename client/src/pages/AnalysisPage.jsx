@@ -16,7 +16,7 @@ const AnalysisPage = () => {
   // Fetch dashboard chart data (no userId needed anymore)
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/api/bills/dashboard');
+      const response = await axios.get('https://voiceyourbill-server.onrender.com/api/bills/dashboard');
       setHistoricalData(response.data);
     } catch (err) {
       console.error('Could not fetch dashboard data.', err);
@@ -27,7 +27,7 @@ const AnalysisPage = () => {
   useEffect(() => {
     const fetchBillStatus = async () => {
       try {
-        const response = await axios.get(`http://localhost:5001/api/bills/${billId}`);
+        const response = await axios.get(`https://voiceyourbill-server.onrender.com/api/bills/${billId}`);
         const billData = response.data;
         setCurrentBill(billData);
 
