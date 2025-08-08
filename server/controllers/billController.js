@@ -35,7 +35,7 @@ const processBill = async (billId, filePath, language) => {
       const historicalCosts = historicalBills.map(b => b.structuredData.totalCost);
       const currentCost = structuredData.totalCost;
 
-      const anomalyResponse = await axios.post('http://localhost:5002/detect', {
+      const anomalyResponse = await axios.post('https://voiceyourbill.onrender.com/detect', {
         historicalCosts,
         currentCost,
       });
