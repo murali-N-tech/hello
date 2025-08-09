@@ -1,24 +1,20 @@
-// server/controllers/billController.js
-
 const axios = require('axios');
 const Bill = require('../models/Bill');
 const { extractTextFromFile } = require('../services/ocrService');
 const { getBillSummary } = require('../services/aiService');
 
-// Updated processBill with anomaly detection
+// This function runs the main processing logic in the background.
 const processBill = async (billId, filePath, language) => {
   try {
-    // Step 1: OCR Extraction
+    // Step 1: Extract text from the file using OCR.
     const extractedText = await extractTextFromFile(filePath);
-
     await Bill.findByIdAndUpdate(billId, {
       extractedText,
       status: 'processing',
     });
 
-    // Step 2: AI Summary + Structured Data
+    // Step 2: Get structured data and a summary from the AI service.
     const { structuredData, summary } = await getBillSummary(extractedText, language);
-
     await Bill.findByIdAndUpdate(billId, {
       aiSummary: summary,
       structuredData,
@@ -31,10 +27,11 @@ const processBill = async (billId, filePath, language) => {
       status: 'completed',
     }).sort({ uploadDate: -1 });
 
-    if (historicalBills.length > 2) {
+    if (historicalBills.length > 2 && structuredData.totalCost) {
       const historicalCosts = historicalBills.map(b => b.structuredData.totalCost);
       const currentCost = structuredData.totalCost;
 
+<<<<<<< HEAD
       const anomalyResponse = await axios.post('https://voiceyourbill.onrender.com/detect', {
         historicalCosts,
         currentCost,
@@ -43,6 +40,20 @@ const processBill = async (billId, filePath, language) => {
       await Bill.findByIdAndUpdate(billId, {
         anomalyData: anomalyResponse.data,
       });
+=======
+      try {
+        const anomalyResponse = await axios.post('https://voiceyourbill-anomaly-detector.onrender.com/detect', { // Using deployed URL
+          historicalCosts,
+          currentCost,
+        });
+        await Bill.findByIdAndUpdate(billId, {
+          anomalyData: anomalyResponse.data,
+        });
+      } catch (anomalyError) {
+        console.error('Anomaly detection service failed:', anomalyError.message);
+        // Continue without anomaly data if the service fails
+      }
+>>>>>>> 6c295c05e406f4586a01e5883c1ee8a9f8be7f03
     }
 
     // Step 4: Mark as Completed
@@ -70,6 +81,7 @@ exports.uploadBill = async (req, res) => {
       filePath: req.file.path,
       fileSize: req.file.size,
       userId: req.user.id,
+      language: language, // FIX: Save the selected language to the database
     });
     await newBill.save();
 

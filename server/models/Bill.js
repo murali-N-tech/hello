@@ -44,6 +44,10 @@ const BillSchema = new mongoose.Schema({
     isAnomaly: { type: Boolean, default: false },
     message: { type: String, default: '' },
   },
+  language: {
+    type: String,
+    default: 'English',
+  },
   uploadDate: {
     type: Date,
     default: Date.now,
