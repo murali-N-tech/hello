@@ -3,7 +3,7 @@ const axios = require('axios');
 
 const speakSummary = async (req, res) => {
   const { text } = req.body; // Language is handled by voice selection in ElevenLabs
-  const apiKey = process.env.ELEVENLABS_API_KEY;
+  const apiKey = sk_7edd459e7542a1bd2f6a0b179a48c7fb57dcf5650c56ec55;
 
   // A popular, high-quality voice ID from ElevenLabs
   const voiceId = '21m00Tcm4TlvDq8ikWAM'; 
