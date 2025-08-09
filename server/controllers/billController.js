@@ -31,7 +31,7 @@ const processBill = async (billId, filePath, language) => {
       const historicalCosts = historicalBills.map(b => b.structuredData.totalCost);
       const currentCost = structuredData.totalCost;
 
-<<<<<<< HEAD
+
       const anomalyResponse = await axios.post('https://voiceyourbill.onrender.com/detect', {
         historicalCosts,
         currentCost,
@@ -40,7 +40,7 @@ const processBill = async (billId, filePath, language) => {
       await Bill.findByIdAndUpdate(billId, {
         anomalyData: anomalyResponse.data,
       });
-=======
+
       try {
         const anomalyResponse = await axios.post('https://voiceyourbill-anomaly-detector.onrender.com/detect', { // Using deployed URL
           historicalCosts,
@@ -53,7 +53,7 @@ const processBill = async (billId, filePath, language) => {
         console.error('Anomaly detection service failed:', anomalyError.message);
         // Continue without anomaly data if the service fails
       }
->>>>>>> 6c295c05e406f4586a01e5883c1ee8a9f8be7f03
+
     }
 
     // Step 4: Mark as Completed
