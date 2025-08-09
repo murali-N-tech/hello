@@ -14,11 +14,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-<<<<<<< HEAD
         const response = await axios.get(`${API_BASE_URL}/api/bills/dashboard`);
-=======
-        const response = await axios.get('https://voiceyourbill-server.onrender.com/api/bills/dashboard');
->>>>>>> 6c295c05e406f4586a01e5883c1ee8a9f8be7f03
         setBills(response.data);
       } catch (err) {
         setError('Failed to load dashboard data.');
@@ -34,7 +30,6 @@ const DashboardPage = () => {
   if (error) return <div className="text-center p-10 text-red-500">{error}</div>;
 
   const mostRecentBill = bills[0];
-  // Check if there is any data to display in the pie chart
   const hasPieChartData = mostRecentBill && (
     mostRecentBill.structuredData?.baseCharge ||
     mostRecentBill.structuredData?.taxesAndFees ||
@@ -52,7 +47,6 @@ const DashboardPage = () => {
               <BillLineGraph historicalData={bills} />
             </div>
             <div className="bg-white p-6 rounded-xl shadow-lg flex items-center justify-center">
-              {/* Conditionally render the pie chart or a message */}
               {hasPieChartData ? (
                 <BillPieChart structuredData={mostRecentBill.structuredData} />
               ) : (
