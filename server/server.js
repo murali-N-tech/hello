@@ -4,10 +4,11 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 require('dotenv').config();
-const userRoutes = require('./routes/api/users');
 
 // Import routes
+const userRoutes = require('./routes/api/users');
 const billRoutes = require('./routes/api/bills');
+const ttsRoutes = require('./routes/api/tts'); // Import the new TTS routes
 
 connectDB();
 
@@ -22,9 +23,9 @@ app.get('/', (req, res) => {
 });
 
 // --- Use API Routes ---
-// Any request to '/api/bills' will be handled by our billRoutes
 app.use('/api/users', userRoutes);
 app.use('/api/bills', billRoutes);
+app.use('/api/tts', ttsRoutes); // Add the new TTS routes to the application
 
 
 const PORT = process.env.PORT || 5000;

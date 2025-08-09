@@ -35,6 +35,9 @@ const BillSchema = new mongoose.Schema({
     totalCost: Number,
     unitsUsed: String,
     dueDate: Date,
+    baseCharge: Number,
+    taxesAndFees: Number,
+    otherCharges: Number,
   },
   // New field for anomaly detection results
   anomalyData: {

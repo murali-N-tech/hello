@@ -1,7 +1,7 @@
 // client/src/services/authService.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5001/api/users';
+const API_URL = 'https://voiceyourbill-server.onrender.com/api/users';
 
 // Register user
 const register = (userData) => {
