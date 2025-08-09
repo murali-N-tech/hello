@@ -41,6 +41,7 @@ const processBill = async (billId, filePath, language) => {
         anomalyData: anomalyResponse.data,
       });
 
+
       try {
         const anomalyResponse = await axios.post('https://voiceyourbill-anomaly-detector.onrender.com/detect', { // Using deployed URL
           historicalCosts,
@@ -53,7 +54,10 @@ const processBill = async (billId, filePath, language) => {
         console.error('Anomaly detection service failed:', anomalyError.message);
         // Continue without anomaly data if the service fails
       }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7ef8f501b6a390046ecb062156d4e75086ea83bd
     }
 
     // Step 4: Mark as Completed
@@ -81,7 +85,7 @@ exports.uploadBill = async (req, res) => {
       filePath: req.file.path,
       fileSize: req.file.size,
       userId: req.user.id,
-      language: language, // FIX: Save the selected language to the database
+      language: language,
     });
     await newBill.save();
 
