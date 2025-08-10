@@ -54,10 +54,6 @@ const processBill = async (billId, filePath, language) => {
         console.error('Anomaly detection service failed:', anomalyError.message);
         // Continue without anomaly data if the service fails
       }
-<<<<<<< HEAD
-
-=======
->>>>>>> 7ef8f501b6a390046ecb062156d4e75086ea83bd
     }
 
     // Step 4: Mark as Completed
